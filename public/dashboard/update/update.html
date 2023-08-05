@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Data Transaksi</title>
+    <link rel="stylesheet" href="/update.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      intergrity="sha512-kfkfwYDsLKI1wq6LFn18zNdLGxu9YAA1QvwINKs4PhcE1QSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXge10g"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container-bgs">
+        <div class="header-kop">
+            <div class="nav-navbar">
+                <div class="search-cari">
+                    <h1 style="margin-left: 500px">EDIT DATA TRANSAKSI</h1> 
+                </div>
+            </div>
+        </div>
+<div class="content-isi"></div>
+    <div class="content-isi2">
+        <div class="payment-pay">
+            <form name="edit">
+                <label>id</label>
+                <input type="number"  name="id" required autofocus><br><br>
+                <label>Deskripsi</label>
+                <input type="text" name="deskripsi" required><br><br>
+                <label>Type</label>
+                <input type="text" name="type" required><br><br>
+                <label>Amount</label>
+                <input type="number" name="amount" required><br><br>
+                <label>Tanggal</label>
+               <input type="date" name="tanggal" required><br><br>
+                <button>SIMPAN</button><br>
+            </form>
+  </body>
+
+  <script>
+    const searchParams = new URLSearchParams(location.search);
+    fetch(`/api/edit/${searchParams.get("id")}`)
+    .then((response) => response.json())
+    .then((data) =>{
+        document.edit.id.value = data.id;
+        document.edit.deskripsi.value = data.deskripsi;
+        document.edit.type.value = data.type;
+        document.edit.amount.value = data.amount;
+        document.edit.tanggal.value = data.tanggal?.split('T')[0];
+    });
+
+    document.edit.onsubmit = async (e) =>{
+        e.preventDefault();
+        const id = document.edit.id.value;
+        const deskripsi = document.edit.deskripsi.value;
+        const type = document.edit.type.value;
+        const amount = document.edit.amount.value;
+        const tanggal = document.edit.tanggal.value;
+
+        await fetch(`/api/edit${searchParams.get("id")}`, {
+            method: "PUT",
+            headers: {
+                 "Content-Type": "application/json",
+             },
+             body: JSON.stringify({
+                 id,
+                 deskripsi,
+                 type,
+                 amount,
+                 tanggal,             
+            }),
+        });
+        location.href = "/dashboard/index.html"
+    }
+  </script>
+</html>

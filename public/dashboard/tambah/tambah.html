@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tambah data</title>
+    <link rel="stylesheet" href="/tambah.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      intergrity="sha512-kfkfwYDsLKI1wq6LFn18zNdLGxu9YAA1QvwINKs4PhcE1QSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXge10g"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container-bgs">
+      <div class="header-kop">
+        <div class="nav-navbar">
+          <div class="search-cari">
+            <h1 style="margin-left: 500px">FORM DATA TRANSAKSI</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-isi">
+        <div class="content-isi2">
+          <div class="payment-pay">
+            <form name="tambah">
+              <label>id</label>
+              <input
+                type="text"
+                id="id"
+                name="id"
+                placeholder="id"
+                required
+                autofocus
+              /><br /><br />
+              <label>deskripsi</label>
+              <input
+                type="text"
+                id="deskripsi"
+                name="deskripsi"
+                placeholder="deskripsi"
+                required
+              /><br /><br />
+              <label>type</label>
+              <input
+                type="text"
+                id="type"
+                name="type"
+                placeholder="type"
+              /><br /><br />
+              <label>amount</label>
+              <input
+                type="text"
+                id="amount"
+                name="amount"
+                placeholder="amount"
+                required
+              /><br /><br />
+              <label>tanggal</label>
+              <input
+                type="date"
+                id="tanggal"
+                name="tanggal"
+                placeholder="tanggal"
+                required
+              /><br /><br />
+              <button href="/index.html">SIMPAN</button><br />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.tambah.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData();
+      data.append("id", document.tambah.id.value);
+      data.append("deskripsi", document.tambah.deskripsi.value);
+      data.append("type", document.tambah.type.value);
+      data.append("amount", document.tambah.amount.value);
+      data.append("tanggal", document.tambah.tanggal.value);
+      await fetch("/api/tambah", {
+        method: "POST",
+        body: data,
+      });
+      location.href = "/dashboard/index.html";
+    };
+  </script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail data transaksi</title>
+    <link rel="stylesheet" href="/detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      intergrity="sha512-kfkfwYDsLKI1wq6LFn18zNdLGxu9YAA1QvwINKs4PhcE1QSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXge10g"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <h3>Informasi Detail Data Transaksi</h3>
+    <hr />
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <script>
+      const searchParams = new URLSearchParams(location.search);
+
+      fetch(`/api/tampil/${searchParams.get("id")}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const divId = document.createElement("div");
+          divId.textContent = `id : ${data.id}`;
+          document.body.appendChild(divId);
+
+          const divDes = document.createElement("div");
+          divDes.textContent = `deskripsi : ${data.deskripsi}`;
+          document.body.appendChild(divDes);
+
+          const divType = document.createElement("div");
+          divType.textContent = `type: ${data.type}`;
+          document.body.appendChild(divType);
+
+          const divAmount = document.createElement("div");
+          divAmount.textContent = `amount: ${data.amount}`;
+          document.body.appendChild(divAmount);
+
+          const divTanggal = document.createElement("div");
+          divTanggal.textContent = `tanggal : ${data.tanggal?.split("T")[0]}`;
+          document.body.appendChild(divTanggal);
+        });
+    </script>
+  </body>
+</html>
